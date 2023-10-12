@@ -11,11 +11,21 @@ load("@rules_python//python:repositories.bzl", "py_repositories")
 
 py_repositories()
 
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+
+python_register_toolchains(
+    name = "python_3_11",
+    python_version = "3.11",
+)
+
+load("@python_3_11//:defs.bzl", "interpreter")
+
 load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
    name = "my_deps",
    requirements_lock = "//py:requirements_lock.txt",
+   python_interpreter_target = interpreter,
 )
 
 load("@my_deps//:requirements.bzl", "install_deps")
