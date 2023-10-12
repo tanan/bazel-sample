@@ -5,6 +5,6 @@ py_binary(
   name = "main",
   srcs = ["main.py"],
   deps = [
-    "@my_deps_numpy//:pkg",
+    requirement("numpy"),
   ],
 )
