@@ -21,3 +21,9 @@ py_library(
       requirement("numpy"),
     ],
 )
+
+py_test(
+    name = "lib_test",
+    srcs = ["lib_test.py"],
+    deps = [":demo_lib"],
+)
