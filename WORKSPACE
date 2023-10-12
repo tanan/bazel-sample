@@ -14,10 +14,10 @@ py_repositories()
 load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
-   name = "pip",
+   name = "my_deps",
    requirements_lock = "//py:requirements_lock.txt",
 )
 
-load("@pip//:requirements.bzl", "install_deps")
+load("@my_deps//:requirements.bzl", "install_deps")
 
 install_deps()
