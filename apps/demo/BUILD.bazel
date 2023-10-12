@@ -3,7 +3,10 @@ load("@my_deps//:requirements.bzl", "requirement")
 
 py_binary(
   name = "main",
-  srcs = ["main.py"],
+  srcs = [
+    "main.py",
+    "lib.py",
+  ],
   deps = [
     requirement("numpy"),
   ],
