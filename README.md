@@ -1,5 +1,10 @@
 # BAZEL-SAMPLE
 
+## requirements
+
+Even if you register a hermetic Python toolchain for runtime execution, a system-installed interpreter is still used to 'bootstrap' Python targets.
+I use python `3.8.10`.
+
 ## usage
 
 ### When adding external libraries
