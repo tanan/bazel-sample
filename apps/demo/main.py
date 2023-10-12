@@ -7,5 +7,5 @@ def version():
 if __name__ == '__main__':
   version()
   d = DemoClass()
-  d.demo()
+  print(d.demo())
   print("Hello, World!!")

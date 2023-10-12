@@ -2,12 +2,22 @@ load("@rules_python//python:defs.bzl", "py_binary")
 load("@my_deps//:requirements.bzl", "requirement")
 
 py_binary(
-  name = "main",
+  name = "demo",
   srcs = [
     "main.py",
-    "lib.py",
   ],
+  main = "main.py",
   deps = [
-    requirement("numpy"),
+    ":demo_lib",
   ],
+)
+
+py_library(
+    name = "demo_lib",
+    srcs = [
+      "lib.py",
+    ],
+    deps = [
+      requirement("numpy"),
+    ],
 )

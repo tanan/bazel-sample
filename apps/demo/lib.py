@@ -8,4 +8,4 @@ class DemoClass:
     a = np.array([1,2,3])
     b = 2
     c = a * b
-    print(f"numpy demo: {c}")
+    return f"numpy demo: {c}"
