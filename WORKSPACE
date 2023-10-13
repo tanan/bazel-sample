@@ -7,25 +7,37 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.26.0/rules_python-0.26.0.tar.gz",
 )
 
-load("@rules_python//python:repositories.bzl", "py_repositories")
+load("@rules_python//python:repositories.bzl", "py_repositories", "python_register_multi_toolchains")
 
 py_repositories()
 
-load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+default_python_version = "3.11"
 
-python_register_toolchains(
-    name = "python_3_11",
-    python_version = "3.11",
+python_register_multi_toolchains(
+    name = "python",
+    default_version = default_python_version,
+    python_versions = [
+        "3.10",
+        "3.11",
+    ],
 )
 
-load("@python_3_11//:defs.bzl", "interpreter")
+load("@python//:pip.bzl", "multi_pip_parse")
+load("@python//3.10:defs.bzl", interpreter_3_10 = "interpreter")
+load("@python//3.11:defs.bzl", interpreter_3_11 = "interpreter")
 
-load("@rules_python//python:pip.bzl", "pip_parse")
 
-pip_parse(
-   name = "my_deps",
-   requirements_lock = "//py:requirements_lock.txt",
-   python_interpreter_target = interpreter,
+multi_pip_parse(
+    name = "my_deps",
+    default_version = default_python_version,
+    python_interpreter_target = {
+    "3.11": interpreter_3_11,
+    "3.10": interpreter_3_10,
+    },
+    requirements_lock = {
+        "3.11": "//py:requirements_lock.txt",
+        "3.10": "//py:requirements_lock.txt",
+    },
 )
 
 load("@my_deps//:requirements.bzl", "install_deps")
