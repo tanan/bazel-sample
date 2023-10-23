@@ -1,4 +1,5 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:packaging.bzl", "py_wheel")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("@my_deps//:requirements.bzl", "requirement")
 
 py_binary(
@@ -26,4 +27,12 @@ py_test(
     name = "lib_test",
     srcs = ["lib_test.py"],
     deps = [":demo_lib"],
+)
+
+py_wheel(
+  name = "demo_wheel",
+  distribution = "example_minimal_library",
+  python_tag = "py3",
+  version = "0.0.1",
+  deps = [":demo"],
 )
