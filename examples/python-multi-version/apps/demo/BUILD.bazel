@@ -1,6 +1,10 @@
-load("@rules_python//python:packaging.bzl", "py_wheel")
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
-load("@my_deps//:requirements.bzl", "requirement")
+## when specifing python version.
+# load("@rules_python//python:defs.bzl", "py_library")
+# load("@python//3.10:defs.bzl", "py_binary", "py_test")
+# load("@pip_deps_3_10//:requirements.bzl", "requirement") # repository name is defined by https://github.com/bazelbuild/rules_python/blob/main/python/pip.bzl#L265
+
+load("@rules_python//python:defs.bzl", "py_binary", "py_test", "py_library")
+load("@pip_deps//:requirements.bzl", "requirement")
 
 py_binary(
   name = "demo",
@@ -27,12 +31,4 @@ py_test(
     name = "lib_test",
     srcs = ["lib_test.py"],
     deps = [":demo_lib"],
-)
-
-py_wheel(
-  name = "demo_wheel",
-  distribution = "example_minimal_library",
-  python_tag = "py3",
-  version = "0.0.1",
-  deps = [":demo"],
 )
