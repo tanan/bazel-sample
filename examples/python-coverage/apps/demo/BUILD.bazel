@@ -1,0 +1,30 @@
+## when specifing python version.
+load("@rules_python//python:defs.bzl", "py_binary", "py_test", "py_library")
+load("@pip_deps//:requirements.bzl", "requirement")
+
+py_binary(
+  name = "demo",
+  srcs = [
+    "main.py",
+  ],
+  main = "main.py",
+  deps = [
+    ":demo_lib",
+  ],
+)
+
+py_library(
+    name = "demo_lib",
+    srcs = [
+      "lib.py",
+    ],
+    deps = [
+      requirement("numpy"),
+    ],
+)
+
+py_test(
+    name = "lib_test",
+    srcs = ["lib_test.py"],
+    deps = [":demo_lib"],
+)
